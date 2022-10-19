@@ -32,8 +32,7 @@
 
 <condition> ::= <expression> <relational operator> <expression> 
 
-<relational operator> = < <= == != => >
-
+< relational operator> ::= < | <= | == | != | => | >
 
 <while statement> ::= while (<condition>) { <statement-list> }
 
