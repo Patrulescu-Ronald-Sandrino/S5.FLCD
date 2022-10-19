@@ -16,7 +16,7 @@ public class HashTableSymbolTable implements SymbolTable {
         // if there is something hashed to the position
         if (table[position] != null) {
             Object[] oldList = (Object[]) table[position];
-            
+
             // if the object already exists, then return its position
             for (int i = 0; i < oldList.length; i++) {
                 if (oldList[i].equals(object)) {
@@ -35,8 +35,7 @@ public class HashTableSymbolTable implements SymbolTable {
         }
         // if there's nothing hashed to the position
         else {
-            table[position] = new Object[1];
-            ((Object[])table[position])[0] = object;
+            table[position] = new Object[]{object};
             return new AbstractMap.SimpleEntry<>(position, 0);
         }
     }
