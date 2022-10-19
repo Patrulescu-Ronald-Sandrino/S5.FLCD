@@ -1,0 +1,39 @@
+
+<statement-list> ::= <statement> | <statement-list> <statement>
+
+<program> ::= ε | <statement-list>
+
+<statement> ::= <declaration statement>
+             | <assignment statement>
+             | <io statement>
+             | <if statement> 
+             | <while statement> 
+             | <for statement>
+             | ;
+
+<declaration statement> ::= <type> <identifier>;
+                         | <type> <identifier> = <expression>;
+
+<expression operator> = + | -
+<expression> ::= <expression> <expression operator> <term> | <term> | <ternary expression>
+<term operator> = * | /
+<term> ::= <term> <term operator> <factor> | <factor>
+<factor> ::= (<expression>) | <identifier> | <constant>
+
+<ternary expression> ::= <condition> ? <expression> : <expression>
+
+<assignment statement> ::= <identifier> = <expression>;
+
+<io statement> ::= read(identifier)
+                | write(expression)
+
+<if statement> ::= if (<condition>) { <statement-list> }
+                | if (<condition>) { <statement-list> } else { <statement-list> }
+
+<condition> ::= <expression> <relational operator> <expression> 
+
+< relational operator> ::= < | <= | == | != | => | >
+
+<while statement> ::= while (<condition>) { <statement-list> }
+
+<for statement> ::= for (<statement>, <condition>, <statement>) { <statement-list> }

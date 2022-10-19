@@ -1,0 +1,42 @@
+Alphabet:
+a. upper and lower case letters of the English alphabet <letter>
+b. underline character _ 
+c. decimal digits <digit>
+d. operators <operator>
+e. separators <separator>
+
+identifiers:
+any combination of letters, digits and underscore that starts with either a letter or an underscore
+
+<identifier> ::= <letter> |
+                 _ |
+                 <identifier> <letter> |
+                 <identifier> _ |
+                 <identifier> <digit>
+
+constants:
+
+1. integer
+
+<non-zero digit> ::= 1 | ... | 9
+<digit> ::= 0 | ... | 9
+<sign> ::= + | -
+
+<integer literal> ::= 0 | <unsigned integer> | <sign> <unsigned integer>
+
+<unsigned integer> ::= <non-zero digit> | <unsigned integer> <digit>
+
+
+2. character
+
+<character literal> ::= '<letter>' | '_' | '<digit>' | '<operator>' | '<separator>'
+
+
+3. string
+
+<character> = <letter> | _ | <digit> | <operator> | <separator>
+
+<characters> = <character> | <characters> <character>
+
+<string> ::= "<characters>"
+
