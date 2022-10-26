@@ -1,17 +1,18 @@
-# arithmetic operator
+# operators
 =
 +
 -
 *
 /
-# relational operator
 <
 <=
 ==
 !=
 =>
 >
-# separator
+?
+:
+# separators
 {
 }
 (
@@ -19,8 +20,8 @@
 :
 ,
 ;
-space
-# reserved words
+
+# keywords
 int
 char
 string
