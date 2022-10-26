@@ -1,0 +1,32 @@
+# arithmetic operator
+=
++
+-
+*
+/
+# relational operator
+<
+<=
+==
+!=
+=>
+>
+# separator
+{
+}
+(
+)
+:
+,
+;
+space
+# reserved words
+int
+char
+string
+if
+else
+while
+for
+read
+write
