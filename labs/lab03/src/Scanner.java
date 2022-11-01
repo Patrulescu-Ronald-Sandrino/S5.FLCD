@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class Scanner {
-    /*
-     * Input: Programs p1/p2/p3/p1err and token.txt (see Lab 1a)
-     * Output: PIF.out, ST.out, message “lexically correct” or “lexical error + location”
-     * */
     public static void scan(String programFilename, String pifFilename, String symbolTableFilename) {
         Scanner scanner = new Scanner(programFilename, pifFilename, symbolTableFilename);
+
         scanner.tryReadFileAndScan();
     }
 
@@ -50,8 +47,16 @@ public class Scanner {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
 
-            lineTokensMap.put(lineNumber++, languageSpecification.tokenize(line));
+            Collection<String> tokens = languageSpecification.tokenize(line);
+
+            if (!tokens.isEmpty()) {
+                lineTokensMap.put(lineNumber++, tokens);
+            }
         }
+
+//        lineTokensMap.forEach((key, value) -> System.out.println("Line " + key + ": " + value));
+//        System.out.println();
+
         return lineTokensMap;
     }
 
@@ -78,9 +83,11 @@ public class Scanner {
         writeFile(PIFFilename, pif.toString());
         writeFile(symbolTableFilename, symbolTable.toString());
 
+        System.out.printf("Program %s is ", programFilename);
         if (errors.isEmpty()) {
-            System.out.println("Lexically correct");
+            System.out.println("lexically correct");
         } else {
+            System.out.println("lexically incorrect");
             System.out.println("Lexical errors:");
             errors.forEach(System.out::println);
         }
@@ -90,6 +97,7 @@ public class Scanner {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
             writer.write(content);
+            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

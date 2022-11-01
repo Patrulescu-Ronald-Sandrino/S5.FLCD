@@ -1,11 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LanguageSpecification {
     private static final List<String> separators = new ArrayList<>();
@@ -61,7 +59,7 @@ public class LanguageSpecification {
     Collection<String> tokenize(String line) { // TODO check
         List<String> tokens = new ArrayList<>();
 
-        for (int i = 0; i < line.length(); ++i) {
+        for (int i = 0; i < line.length() && !isStartOfComment(line, i); ++i) {
             String c = String.valueOf(line.charAt(i));
             String token = null;
 
@@ -86,6 +84,10 @@ public class LanguageSpecification {
         }
 
         return tokens;
+    }
+
+    private boolean isStartOfComment(String line, int position) {
+        return line.length() > position + 1 && line.charAt(position) == '/' && line.charAt(position + 1) == '/';
     }
 
     private boolean isPartOfOperator(String c) { // TODO check
@@ -170,11 +172,12 @@ public class LanguageSpecification {
     }
 
     private static void readTokens() {
-        try (Stream<String> linesStream = Files.lines(Paths.get("input/token.txt"))) {
-            List<String> lines = linesStream.collect(Collectors.toList());
+        try (java.util.Scanner scanner = new java.util.Scanner(new BufferedReader(new FileReader("input/token.txt")))) {
             String lastCategory = null;
 
-            for (String line : lines) {
+            while(scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
                 if (line.startsWith("#")) {
                     lastCategory = line.substring(2);
                     continue;

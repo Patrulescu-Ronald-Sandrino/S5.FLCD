@@ -12,5 +12,4 @@ while(n != 0) {
         n = n - 1;
 }
 
-
-write(maz; // parenthesis isn't closed
+write("The maximum is: + max); // missing a quote

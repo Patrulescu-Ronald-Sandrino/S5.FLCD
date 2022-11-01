@@ -4,10 +4,10 @@ int a; int b;
 read(a); read(b);
 
 
-while (a != b) {
+while(a != b) {
         a > b ? a = a - b : b = b - a;
 }
 
 
-write ("The gcd is ");
-write (a);
+write("The gcd is ");
+write(a);
