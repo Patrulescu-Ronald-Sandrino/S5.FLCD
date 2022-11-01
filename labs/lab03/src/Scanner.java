@@ -1,11 +1,8 @@
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
 
 public class Scanner {
     /*
@@ -17,19 +14,11 @@ public class Scanner {
         scanner.tryReadFileAndScan();
     }
 
-
-    private static final List<String> operators = new ArrayList<>();
-    private static final List<String> separators = new ArrayList<>();
-    private static final List<String> keywords = new ArrayList<>();
-
-    static {
-        readTokens();
-    }
-
     private final String programFilename;
     private final String PIFFilename;
     private final String symbolTableFilename;
 
+    private final LanguageSpecification languageSpecification = new LanguageSpecification();
     private final SymbolTable symbolTable = new HashTableSymbolTable();
     private final PIF pif = new PIF();
     private final List<String> errors = new ArrayList<>();
@@ -41,51 +30,68 @@ public class Scanner {
     }
 
     private void tryReadFileAndScan() {
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(programFilename))) {
-            scan(br);
+        try (java.util.Scanner scanner = new java.util.Scanner(new File(programFilename))) {
+            scan(scanner);
         } catch (IOException e) {
             throw new RuntimeException("Could not read file", e);
         }
     }
 
-    private void scan(BufferedReader br) throws IOException {
-        String line;
+    private void scan(java.util.Scanner scanner) throws IOException {
+        Map<Integer, Collection<String>> lineTokensMap = getTokens(scanner);
+        generatePIF(lineTokensMap);
+        writeAnalysisResults();
+    }
+
+    private Map<Integer, Collection<String>> getTokens(java.util.Scanner scanner) {
+        Map<Integer, Collection<String>> lineTokensMap = new HashMap<>();
         int lineNumber = 1;
 
-        while ((line = br.readLine()) != null) {
-            String[] tokens = line.split(" ");
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+
+            lineTokensMap.put(lineNumber++, languageSpecification.tokenize(line));
+        }
+        return lineTokensMap;
+    }
+
+    private void generatePIF(Map<Integer, Collection<String>> lineTokensMap) {
+        for (Map.Entry<Integer, Collection<String>> entry : lineTokensMap.entrySet()) {
+            int line = entry.getKey();
+            Collection<String> tokens = entry.getValue();
+
+            for (String token : tokens) {
+                if (languageSpecification.isSeparatorOperatorOrKeyword(token)) {
+                    pif.add(token, new AbstractMap.SimpleEntry<>(-1, -1));
+                } else if (languageSpecification.isConstant(token)) {
+                    pif.add("constant", symbolTable.add(token));
+                } else if (languageSpecification.isIdentifier(token)) {
+                    pif.add("identifier", symbolTable.add(token));
+                } else {
+                    errors.add(String.format("Lexical error at line %d: %s", line, token));
+                }
+            }
         }
     }
 
-    private static void readTokens() {
-        try (Stream<String> linesStream = Files.lines(Paths.get("input/token.txt"))) {
-            List<String> lines = linesStream.collect(Collectors.toList());
-            String lastCategory = null;
+    private void writeAnalysisResults() {
+        writeFile(PIFFilename, pif.toString());
+        writeFile(symbolTableFilename, symbolTable.toString());
 
-            for (String line : lines) {
-                if (line.startsWith("#")) {
-                    lastCategory = line.substring(2);
-                    continue;
-                }
+        if (errors.isEmpty()) {
+            System.out.println("Lexically correct");
+        } else {
+            System.out.println("Lexical errors:");
+            errors.forEach(System.out::println);
+        }
+    }
 
-                if (lastCategory == null) {
-                    continue;
-                }
-
-                switch (lastCategory) {
-                    case "operators":
-                        operators.add(line);
-                        break;
-                    case "separators":
-                        separators.add(line);
-                        break;
-                    case "keywords":
-                        keywords.add(line);
-                        break;
-                }
-            }
+    private static void writeFile(String path, String content) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            writer.write(content);
         } catch (IOException e) {
-            throw new RuntimeException("Could not read tokens", e);
+            throw new RuntimeException(e);
         }
     }
 }

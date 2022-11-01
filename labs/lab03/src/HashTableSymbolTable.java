@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class HashTableSymbolTable implements SymbolTable {
     Object[] table;
-    int size = 20;
+    int size = 300;
 
     public HashTableSymbolTable() {
         table = new Object[size];
@@ -47,5 +47,22 @@ public class HashTableSymbolTable implements SymbolTable {
 
     private int hash(Object object) {
         return object.hashCode() % size;
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                Object[] list = (Object[]) table[i];
+                for (int j = 0; j < list.length; j++) {
+                    result.append(i).append(" -> ").append(j).append(" : ").append(list[j]).append("\n");
+                }
+            }
+        }
+
+        return result.toString();
     }
 }

@@ -2,7 +2,16 @@
 
 public class Main {
     public static void main(String[] args) {
-        Scanner.scan("input/p1.txt", "output/p1_pif.txt", "output/p1_st.txt");
-        System.out.println("end");
+        for (String program: new String[]{"p1", "p2", "p3", "p1err"}) {
+            System.out.println("--------------------------------------------------------------------------");
+
+            System.out.println("Program " + program);
+            Scanner.scan("input/" + program + ".txt",
+                    "output/" + program + "_pif.txt",
+                    "output/" + program + "_st.txt");
+
+            System.out.println("--------------------------------------------------------------------------");
+            System.out.println();
+        }
     }
 }
