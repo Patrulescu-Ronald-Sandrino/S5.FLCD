@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class HashTableSymbolTable implements SymbolTable {
     Object[] table;
-    int size = 300;
+    int size = 5000;
 
     public HashTableSymbolTable() {
         table = new Object[size];
@@ -46,7 +46,7 @@ public class HashTableSymbolTable implements SymbolTable {
     }
 
     private int hash(Object object) {
-        return object.hashCode() % size;
+        return Math.abs(object.hashCode() % size);
     }
 
 
