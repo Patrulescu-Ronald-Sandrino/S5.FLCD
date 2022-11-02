@@ -63,9 +63,8 @@ public class Scanner {
     private void generatePIF(Map<Integer, Collection<String>> lineTokensMap) {
         for (Map.Entry<Integer, Collection<String>> entry : lineTokensMap.entrySet()) {
             int line = entry.getKey();
-            Collection<String> tokens = entry.getValue();
 
-            for (String token : tokens) {
+            for (String token : entry.getValue()) {
                 if (languageSpecification.isSeparatorOperatorOrKeyword(token)) {
                     pif.add(token, new AbstractMap.SimpleEntry<>(-1, -1));
                 } else if (languageSpecification.isConstant(token)) {
