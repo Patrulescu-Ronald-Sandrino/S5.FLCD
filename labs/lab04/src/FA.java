@@ -86,4 +86,28 @@ public class FA {
         }
         return true;
     }
+
+    public boolean isAccepted(String sequence) {
+        String currentState = initialState;
+
+        for (int i = 0; i < sequence.length(); i++) {
+            String element = String.valueOf(sequence.charAt(i));
+            if (!alphabet.contains(element)) {
+                return false;
+            }
+            boolean found = false;
+            for (Transition transition : transitions) {
+                if (transition.getSourceState().equals(currentState) && transition.getElementFromAlphabet().equals(element)) {
+                    currentState = transition.getDestinationState();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+
+        return finalStates.contains(currentState);
+    }
 }

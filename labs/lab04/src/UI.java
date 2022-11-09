@@ -70,10 +70,9 @@ public class UI {
                     break;
                 }
                 case 8: {
-                    System.out.println("Not implemented yet");
-//                    System.out.println("Please enter the sequence:");
-//                    String sequence = new Scanner(System.in).nextLine();
-//                    System.out.println(fa.isAccepted(sequence));
+                    System.out.print("Please enter the sequence: ");
+                    String sequence = new Scanner(System.in).nextLine();
+                    System.out.println(fa.isAccepted(sequence));
                     break;
                 }
                 default: {
