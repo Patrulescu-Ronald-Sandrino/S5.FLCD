@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        FA fa = new FA("FA.in");
+        UI ui = new UI();
+        ui.run();
     }
 }

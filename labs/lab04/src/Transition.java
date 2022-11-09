@@ -20,4 +20,9 @@ public class Transition {
     public String getDestinationState() {
         return destinationState;
     }
+
+    @Override
+    public String toString() {
+        return "δ(" + sourceState + ", " + elementFromAlphabet + ") = " + destinationState;
+    }
 }
