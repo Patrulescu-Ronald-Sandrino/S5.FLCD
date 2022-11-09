@@ -56,7 +56,7 @@ public class LanguageSpecification {
         return separators.contains(token) && !token.equals(" ");
     }
 
-    Collection<String> tokenize(String line) { // TODO check
+    public Collection<String> tokenize(String line) { // TODO check
         List<String> tokens = new ArrayList<>();
 
         for (int i = 0; i < line.length() && !isStartOfComment(line, i); ++i) {
