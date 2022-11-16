@@ -15,7 +15,7 @@ public class Scanner {
     private final String PIFFilename;
     private final String symbolTableFilename;
 
-    private final LanguageSpecification languageSpecification = new LanguageSpecification();
+    private final LanguageSpecification languageSpecification = new LanguageSpecificationWithFA(); // LanguageSpecification, LanguageSpecificationWithFA
     private final SymbolTable symbolTable = new HashTableSymbolTable();
     private final PIF pif = new PIF();
     private final List<String> errors = new ArrayList<>();

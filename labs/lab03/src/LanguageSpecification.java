@@ -36,15 +36,15 @@ public class LanguageSpecification {
         return token.matches("^[a-zA-Z_][a-zA-Z0-9_]*$"); // any combination of letters, digits and underscores, starting with a letter or underscore
     }
 
-    private boolean isNumericConstant(String token) {
+    protected boolean isNumericConstant(String token) {
         return token.matches("^0|[+|-]?[1-9][0-9]*$");
     }
 
-    private boolean isStringConstant(String token) {
+    protected boolean isStringConstant(String token) {
         return token.matches("^" + STRING_LITERAL_REGEX + "$");
     }
 
-    private boolean isCharConstant(String token) {
+    protected boolean isCharConstant(String token) {
         return token.matches("^" + CHAR_LITERAL_REGEX + "$");
     }
 
