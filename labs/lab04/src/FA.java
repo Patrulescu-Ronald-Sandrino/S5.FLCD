@@ -71,6 +71,9 @@ public class FA {
 
 
     public boolean isDeterministic() {
+        // for each pair of state and symbol (s, e), it computes |δ(s, e)|
+        // if there is a pair (s, e) such that |δ(s, e)| > 1, then the FA is not deterministic
+        // otherwise, the FA is deterministic
         for (String state : states) {
             for (String element : alphabet) {
                 int count = 0;
@@ -78,9 +81,9 @@ public class FA {
                     if (transition.getSourceState().equals(state) && transition.getElementFromAlphabet().equals(element)) {
                         count++;
                     }
-                }
-                if (count > 1) {
-                    return false;
+                    if (count > 1) {
+                        return false;
+                    }
                 }
             }
         }
