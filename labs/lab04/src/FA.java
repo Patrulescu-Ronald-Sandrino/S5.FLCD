@@ -76,19 +76,29 @@ public class FA {
         // otherwise, the FA is deterministic
         for (String state : states) {
             for (String element : alphabet) {
-                int count = 0;
-                for (Transition transition : transitions) {
-                    if (transition.getSourceState().equals(state) && transition.getElementFromAlphabet().equals(element)) {
-                        count++;
-                    }
-                    if (count > 1) {
-                        return false;
-                    }
+                if (hasMoreThanOneTransition(state, element)) {
+                    return false;
                 }
             }
         }
         return true;
     }
+
+    private boolean hasMoreThanOneTransition(String state, String symbol) {
+        int count = 0;
+
+        for (Transition transition : transitions) {
+            if (transition.getSourceState().equals(state) && transition.getElementFromAlphabet().equals(symbol)) {
+                count++;
+            }
+            if (count > 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public boolean isAccepted(String sequence) {
         String currentState = initialState;
