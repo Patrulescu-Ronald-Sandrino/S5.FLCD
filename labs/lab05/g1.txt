@@ -1,8 +1,6 @@
-S C
-a b
 S
-S ab
-S aCSb
-C bSb
-C ba
-CS b
+a b c
+S
+S -> a S b S
+S -> a S
+S -> c

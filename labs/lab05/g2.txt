@@ -1,0 +1,21 @@
+program statements statement identifier expression type condition statement_list
+ε = ; read
+program
+program -> ε
+program -> statements
+statements -> statement
+statements -> statements statement
+statement -> type identifier ;
+statement -> type identifier = expression ;
+statement -> identifier = expression ;
+statement -> read(identifier) ;
+statement -> write(expression) ;
+statement -> statement_list
+statement_list -> { statements }
+
+
+expression_operator -> +
+expression_operator -> -
+expression -> expression expression_operator term
+expression -> term
+expression -> condition ? expression : expression
