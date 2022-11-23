@@ -1,21 +1,34 @@
-program statements statement identifier expression type condition statement_list
-ε = ; read
+program statement statement_list identifier expression type condition relational_operator expression_operator term term_operator factor
+ε { } = ; read write ( ) if else ? : while < <= > >= == != + - * /
 program
 program -> ε
-program -> statements
-statements -> statement
-statements -> statements statement
+program -> statement
+statement -> { statement_list }
+statement_list -> statement
+statement_list -> statement_list statement
 statement -> type identifier ;
 statement -> type identifier = expression ;
 statement -> identifier = expression ;
 statement -> read(identifier) ;
 statement -> write(expression) ;
-statement -> statement_list
-statement_list -> { statements }
-
-
+statement -> if ( condition ) statement
+statement -> if ( condition ) statement else statement
+statement -> condition ? statement : statement
+statement -> while ( condition ) statement
+type -> int char string
+condition -> 0
+condition -> 1
+condition -> expression relational_operator expression
+relational_operator -> < <= > >= == !=
 expression_operator -> +
 expression_operator -> -
 expression -> expression expression_operator term
 expression -> term
 expression -> condition ? expression : expression
+term_operator -> *
+term_operator -> /
+term -> term term_operator factor
+term -> factor
+factor -> ( expression )
+factor -> identifier
+factor -> number
