@@ -1,0 +1,8 @@
+S C
+a b
+S
+S ab
+S aCSb
+C bSb
+C ba
+CS b
