@@ -64,6 +64,15 @@ public class Grammar {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
 
+    public boolean isContextFree() {
+        for (Map.Entry<Set<String>, Set<List<String>>> productionRule: this.productionRules.entrySet()) {
+            if (!(productionRule.getKey().size() == 1 &&
+                    this.nonTerminalSymbols.contains(productionRule.getKey().stream().toList().get(0)))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
