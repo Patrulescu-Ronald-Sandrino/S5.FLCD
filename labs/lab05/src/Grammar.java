@@ -75,4 +75,20 @@ public class Grammar {
         }
         return true;
     }
+
+    public Set<String> getNonTerminalSymbols() {
+        return this.nonTerminalSymbols;
+    }
+
+    public Set<String> getTerminalSymbols() {
+        return this.terminalSymbols;
+    }
+
+    public Map<Set<String>, Set<List<String>>> getProductionRules() {
+        return this.productionRules;
+    }
+
+    public Set<List<String>> getProductionsForNonTerminal(String nonTerminal) {
+        return this.productionRules.get(new LinkedHashSet<>(List.of(nonTerminal)));
+    }
 }
