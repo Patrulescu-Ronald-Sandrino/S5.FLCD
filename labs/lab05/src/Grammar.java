@@ -50,15 +50,11 @@ public class Grammar {
                                             productionRule[1]
                                                     .trim()
                                                     .split(" "))
-                                    .map(ruleSymbol -> (ruleSymbol == "ε") ? "" : ruleSymbol)
+                                    .map(ruleSymbol -> (Objects.equals(ruleSymbol, "ε")) ? "" : ruleSymbol)
                                     .toArray(String[]::new);
 
-                    if (this.productionRules.containsKey(new LinkedHashSet<>(Arrays.asList(ruleLeftHandSide)))) {
-//                        TODO: dig for compute
-                        this.productionRules.get(new LinkedHashSet<>(Arrays.asList(ruleLeftHandSide))).add(Arrays.asList(ruleRightHandSide));
-                    } else {
-                        this.productionRules.put(new LinkedHashSet<>(Arrays.asList(ruleLeftHandSide)), Collections.singleton(Arrays.asList(ruleRightHandSide)));
-                    }
+                    this.productionRules.computeIfAbsent(new LinkedHashSet<>(List.of(ruleLeftHandSide)),
+                            k -> new LinkedHashSet<>()).add(List.of(ruleRightHandSide));
                 }
                 lineIndex += 1;
             }
