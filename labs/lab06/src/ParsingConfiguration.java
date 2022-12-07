@@ -6,10 +6,10 @@ public class ParsingConfiguration {
     public ParsingState s;
     public int i;
     public Stack<String> alpha;
-    public Queue<String> beta;
+    public Stack<String> beta;
     public ParsingConfiguration next;
 
-    public ParsingConfiguration(ParsingState s, int i, Stack<String> alpha, Queue<String> beta) {
+    public ParsingConfiguration(ParsingState s, int i, Stack<String> alpha, Stack<String> beta) {
         this.s = s;
         this.i = i;
         this.alpha = alpha;
