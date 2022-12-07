@@ -7,12 +7,22 @@ public class ParsingConfiguration {
     public int i;
     public Stack<String> alpha;
     public Queue<String> beta;
+    public ParsingConfiguration next;
 
     public ParsingConfiguration(ParsingState s, int i, Stack<String> alpha, Queue<String> beta) {
         this.s = s;
         this.i = i;
         this.alpha = alpha;
         this.beta = beta;
+        this.next = null;
+    }
+
+    public ParsingConfiguration(ParsingConfiguration configuration){
+        this.s = configuration.s;
+        this.i = configuration.i;
+        this.alpha = configuration.alpha;
+        this.beta = configuration.beta;
+        this.next = configuration.next;
     }
 
     @Override
