@@ -10,19 +10,27 @@ public class ParserStrategy {
 
     public void expand(ParsingConfiguration configuration){
         configuration.next = new ParsingConfiguration(configuration);
-        String symbol = configuration.next.beta.pop();
-        configuration.next.alpha.add(symbol);
+        ParsingConfiguration nextConfig = configuration.next;
 
-        if(!indexMapping.containsKey(configuration.next.alpha.size() - 1)){
-            indexMapping.put(configuration.next.alpha.size() - 1, 1);
+        String symbol = nextConfig.beta.pop();
+        nextConfig.alpha.add(symbol);
+
+        if(!indexMapping.containsKey(nextConfig.alpha.size() - 1)){ // TODO: is this condition required?
+            indexMapping.put(nextConfig.alpha.size() - 1, 1);
         }
 
-        Set<List<String>> productionRuleResult = productionRules.get(new LinkedHashSet<>(Collections.singleton(symbol)));
-        List<String> productionRule = productionRuleResult.stream().toList().get(indexMapping.get(configuration.next.alpha.size() - 1));
+        // get the production rule for the current symbol in the head of the input stack
+        Integer productionNumber = indexMapping.get(nextConfig.alpha.size() - 1);
+        List<String> firstProductionRuleOfSymbol = getLHSOfIthProductionRuleOfSymbol(symbol, productionNumber);
 
-        Collections.reverse(productionRule);
-        configuration.next.beta.addAll(productionRule);
+        // push the element of the LHS of the production rule to the input stack
+        Collections.reverse(firstProductionRuleOfSymbol); // reverse the elements of the LHS bc. last element should be pushed first
+        nextConfig.beta.addAll(firstProductionRuleOfSymbol);
+    }
 
+    private List<String> getLHSOfIthProductionRuleOfSymbol(String symbol, Integer i){
+        Set<List<String>> productionRulesOfSymbol = productionRules.get(new LinkedHashSet<>(Collections.singleton(symbol)));
+        return new ArrayList<>(productionRulesOfSymbol).get(i - 1);
     }
 
     public void advance(ParsingConfiguration configuration){
@@ -43,7 +51,59 @@ public class ParserStrategy {
     }
 
     public void anotherTry(ParsingConfiguration configuration){
+        configuration.next = new ParsingConfiguration(configuration);
+        ParsingConfiguration nextConfig = configuration.next;
 
+        String A = nextConfig.alpha.peek();
+        Integer j = indexMapping.get(nextConfig.alpha.size() - 1);
+
+        List<String> lhsOfCurrentProductionRule = getLHSOfIthProductionRuleOfSymbol(A, j);
+
+        try {
+            List<String> lhsOfNextProductionRule = getLHSOfIthProductionRuleOfSymbol(A, j + 1); // this should fail if ∃! A -> γ_{j+1}. MAYBE replace w/ if-else
+
+            nextConfig.s = ParsingState.NORMAL;
+
+            // pop from beta the lhs of the current production rule
+            for (int i = 0; i < lhsOfCurrentProductionRule.size(); i++) {
+                nextConfig.beta.pop();
+            }
+
+            // push to beta the lhs of the next production rule
+            Collections.reverse(lhsOfNextProductionRule);
+            nextConfig.beta.addAll(lhsOfNextProductionRule);
+
+            // update the index mapping (actually updates the working stack)
+            indexMapping.put(nextConfig.alpha.size() - 1, j + 1);
+        }
+        catch (Exception e) {
+            var startingSymbol = new ArrayList<>(new ArrayList<>(productionRules.keySet()).get(0)).get(0); // WARNING: Assumes the starting symbol is the 1st inserted
+            if (nextConfig.i == 1 && Objects.equals(A, startingSymbol)) {
+                nextConfig.s = ParsingState.ERROR;
+
+                // remove production rule from the working stack
+                indexMapping.remove(nextConfig.alpha.size() - 1);
+                nextConfig.alpha.pop();
+
+                // pop from beta the lhs of the current production rule
+                for (int i = 0; i < lhsOfCurrentProductionRule.size(); i++) {
+                    nextConfig.beta.pop();
+                }
+            }
+            else {
+                // remove production rule from the working stack
+                indexMapping.remove(nextConfig.alpha.size() - 1);
+                nextConfig.alpha.pop();
+
+                // pop from beta the lhs of the current production rule
+                for (int i = 0; i < lhsOfCurrentProductionRule.size(); i++) {
+                    nextConfig.beta.pop();
+                }
+
+                // push the symbol to the input stack
+                nextConfig.beta.push(A);
+            }
+        }
     }
 
     public void success(ParsingConfiguration configuration){

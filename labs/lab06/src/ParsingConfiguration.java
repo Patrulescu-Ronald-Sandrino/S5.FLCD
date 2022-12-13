@@ -3,11 +3,15 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class ParsingConfiguration {
-    public ParsingState s;
-    public int i;
-    public Stack<String> alpha;
-    public Stack<String> beta;
+    public ParsingState s = ParsingState.NORMAL;
+    public int i = 1;
+    public Stack<String> alpha = new Stack<>();
+    public Stack<String> beta = new Stack<>();
     public ParsingConfiguration next;
+
+    public ParsingConfiguration(List<String> input){
+        beta.addAll(input);
+    }
 
     public ParsingConfiguration(ParsingState s, int i, Stack<String> alpha, Stack<String> beta) {
         this.s = s;
