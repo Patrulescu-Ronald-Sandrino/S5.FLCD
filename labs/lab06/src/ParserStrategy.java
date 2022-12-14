@@ -7,6 +7,10 @@ public class ParserStrategy {
         this.productionRules = productionRules;
     }
 
+    public ParserStrategy(Grammar grammar) {
+        this.productionRules = grammar.getProductionRules();
+    }
+
     public void expand(ParsingConfiguration configuration){
         configuration.next = new ParsingConfiguration(configuration);
         ParsingConfiguration nextConfig = configuration.next;

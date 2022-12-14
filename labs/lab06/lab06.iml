@@ -75,5 +75,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="lab05" />
   </component>
 </module>

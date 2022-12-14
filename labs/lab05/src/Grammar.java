@@ -11,6 +11,9 @@ public class Grammar {
     private Set<String> terminalSymbols = new LinkedHashSet<>();
     private Map<Set<String>, Set<List<String>>> productionRules = new LinkedHashMap<>();
     private String startSymbol;
+    
+    private ParserStrategy strategy;
+
 
     // content of grammar file (strings separated by spaces):
     // line 1: non-terminals
@@ -80,8 +83,16 @@ public class Grammar {
         return this.nonTerminalSymbols;
     }
 
+    public boolean isNonTerminalSymbol(String symbol){
+        return this.nonTerminalSymbols.contains(symbol);
+    }
+
     public Set<String> getTerminalSymbols() {
         return this.terminalSymbols;
+    }
+
+    public boolean isTerminalSymbol(String symbol){
+        return this.terminalSymbols.contains(symbol);
     }
 
     public Map<Set<String>, Set<List<String>>> getProductionRules() {
