@@ -95,6 +95,13 @@ public class ParserStrategyTest {
     }
 
     @Test
+    public void anotherTry() {
+        anotherTryI();
+        anotherTryII();
+        anotherTryIII();
+    }
+
+    @Ignore
     public void anotherTryI() {
                 ParsingConfiguration config = new ParsingConfiguration(
                 ParsingState.BACK,
@@ -118,7 +125,7 @@ public class ParserStrategyTest {
                 assert config.next.beta.equals(Util.reverse(Arrays.asList("a", "S", "b", "S")));
     }
 
-    @Test
+    @Ignore
     public void anotherTryII() {
                 ParsingConfiguration config = new ParsingConfiguration(
                 ParsingState.BACK,
@@ -143,7 +150,7 @@ public class ParserStrategyTest {
                 assert config.next.beta.equals(Util.reverse(Arrays.asList("S", "b", "S", "b", "S")));
     }
 
-    @Test
+    @Ignore
     public void anotherTryIII() {
         ParsingConfiguration config = new ParsingConfiguration(
                 ParsingState.BACK,
