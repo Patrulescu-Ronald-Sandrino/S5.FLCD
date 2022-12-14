@@ -102,4 +102,9 @@ public class Grammar {
     public Set<List<String>> getProductionsForNonTerminal(String nonTerminal) {
         return this.productionRules.get(new LinkedHashSet<>(List.of(nonTerminal)));
     }
+
+    public List<String> getLHSOfIthProductionRuleOfSymbol(String symbol, Integer i){
+        Set<List<String>> productionRulesOfSymbol = this.productionRules.get(new LinkedHashSet<>(Collections.singleton(symbol)));
+        return new ArrayList<>(new ArrayList<>(productionRulesOfSymbol).get(i - 1));
+    }
 }

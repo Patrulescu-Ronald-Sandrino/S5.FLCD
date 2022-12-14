@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +14,26 @@ public class ParserAlgorithm {
         this.strategy = new ParserStrategy(g);
         this.sequence = w;
     }
-    void execute(){
+
+    private ParsingTable createParsingTable(ParsingConfiguration finalConfiguration){
+        ParsingTree tree = new ParsingTree();
+        int treeIndex = 0;
+
+        List<String> alphaAsList = Util.reverse(new ArrayList<>(finalConfiguration.alpha));
+        
+        while(treeIndex < alphaAsList.size()){
+            ParsingTreeNode symbolNode = new ParsingTreeNode(alphaAsList.get(treeIndex));
+            if(grammar.isNonTerminalSymbol(symbol)){
+                if(tree.root == null){
+                    tree.root = currentNode;
+                }
+                grammar.getLHSOfIthProductionRuleOfSymbol(symbol, finalConfiguration.indexMapping.get(treeIndex));
+            }
+        }
+    }
+
+
+    public void execute(){
         ParsingConfiguration config = initialConfiguration;
 
         while(config.s != ParsingState.FINAL && config.s != ParsingState.ERROR){
@@ -60,6 +80,8 @@ public class ParserAlgorithm {
         }
         else{
             // PRINT SUCCESS MESSAGE
+
+
         }
 
     }
