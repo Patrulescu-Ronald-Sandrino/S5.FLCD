@@ -11,9 +11,9 @@ public class ParserStrategy {
         configuration.next = new ParsingConfiguration(configuration);
         ParsingConfiguration nextConfig = configuration.next;
 
-        int indexMappingKey = nextConfig.alpha.size() - 1;
         String symbol = nextConfig.beta.pop();
         nextConfig.alpha.add(symbol);
+        int indexMappingKey = nextConfig.alpha.size() - 1;
 
         if(!nextConfig.indexMapping.containsKey(indexMappingKey)){ // TODO: is this condition required?
             nextConfig.indexMapping.put(indexMappingKey, 1);
