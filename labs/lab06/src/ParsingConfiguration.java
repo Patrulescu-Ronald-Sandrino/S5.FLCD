@@ -1,43 +1,52 @@
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
-public class ParsingConfiguration {
+public class ParsingConfiguration implements Cloneable {
     public ParsingState s = ParsingState.NORMAL;
     public int i = 1;
     public Stack<String> alpha = new Stack<>();
+    public Map<Integer, Integer> indexMapping = new LinkedHashMap<>();
+
     public Stack<String> beta = new Stack<>();
     public ParsingConfiguration next;
 
-    public ParsingConfiguration(List<String> input){
+    public ParsingConfiguration(ParsingState s, int i, List<String> alpha, Map<Integer, Integer> indexMapping, List<String> beta) {
+        this.s = s;
+        this.i = i;
+        this.alpha = Util.listToStack(alpha);
+        this.indexMapping = indexMapping;
+        this.beta = Util.listToStackReverse(beta);
+    }
+
+    public ParsingConfiguration(List<String> input) {
         beta.addAll(input);
     }
 
-    public ParsingConfiguration(ParsingState s, int i, Stack<String> alpha, Stack<String> beta) {
-        this.s = s;
-        this.i = i;
-        this.alpha = alpha;
-        this.beta = beta;
-        this.next = null;
-    }
-
-    public ParsingConfiguration(ParsingConfiguration configuration){
+    public ParsingConfiguration(ParsingConfiguration configuration) {
         this.s = configuration.s;
         this.i = configuration.i;
-        this.alpha = configuration.alpha;
-        this.beta = configuration.beta;
+        this.alpha = (Stack<String>) configuration.alpha.clone();
+        this.indexMapping = new LinkedHashMap<>(configuration.indexMapping);
+        this.beta = (Stack<String>) configuration.beta.clone();
         this.next = configuration.next;
     }
 
     @Override
     public String toString() {
         StringBuilder alphaString = new StringBuilder();
-        for (String symbol: this.alpha) {
-            alphaString.append(symbol).append(" ");
+        int index = 0;
+        for (String symbol : this.alpha) {
+            alphaString.append(symbol);
+            if (indexMapping.containsKey(index - 1)) {
+                alphaString.append("[").append(indexMapping.get(index - 1)).append("]");
+            }
+            if (index < this.alpha.size() - 1) {
+                alphaString.append(" ");
+            }
+            index++;
         }
 
         StringBuilder betaString = new StringBuilder();
-        for(String symbol: this.beta) {
+        for (String symbol : this.beta) {
             betaString.append(symbol).append(" ");
         }
 
