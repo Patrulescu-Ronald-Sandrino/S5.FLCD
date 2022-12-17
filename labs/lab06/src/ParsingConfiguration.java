@@ -1,6 +1,7 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class ParsingConfiguration implements Cloneable {
+public class ParsingConfiguration {
     public ParsingState s = ParsingState.NORMAL;
     public int i = 1;
     public Stack<String> alpha = new Stack<>();
@@ -51,5 +52,20 @@ public class ParsingConfiguration implements Cloneable {
         }
 
         return "(" + s.toString() + ", " + i + ", " + alphaString + ", " + betaString + ")";
+    }
+
+    public List<Map.Entry<String, Integer>> alphaToListOfProductionsString() {
+        List<Map.Entry<String, Integer>> alphaAsList = new ArrayList<>();
+
+        int index = 0;
+        for (String symbol : this.alpha) {
+            if (indexMapping.containsKey(index)) {
+                Integer localRuleNumber = indexMapping.get(index);
+                alphaAsList.add(new AbstractMap.SimpleEntry<>(symbol, localRuleNumber));
+            }
+            index++;
+        }
+
+        return alphaAsList;
     }
 }

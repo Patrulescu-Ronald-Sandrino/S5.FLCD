@@ -21,4 +21,15 @@ public class Util {
     public static <T> Stack<T> listToStackReverse(List<T> list) {
         return listToStack(reverse(list));
     }
+
+
+    public static String leftJustifiedFormatting(int count, int width) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < count; i++) {
+            sb.append("%").append(width).append("s");
+        }
+
+        return sb.toString();
+    }
 }

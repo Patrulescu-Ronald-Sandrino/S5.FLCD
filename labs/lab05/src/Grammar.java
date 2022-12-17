@@ -62,7 +62,7 @@ public class Grammar {
                 lineIndex += 1;
             }
             // map<string, list<string>>
-            System.out.println("Finished");
+            System.out.println("Finished reading grammar from file " + filePath);
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
