@@ -37,8 +37,8 @@ public class ParsingConfiguration {
         int index = 0;
         for (String symbol : this.alpha) {
             alphaString.append(symbol);
-            if (indexMapping.containsKey(index - 1)) {
-                alphaString.append("[").append(indexMapping.get(index - 1)).append("]");
+            if (indexMapping.containsKey(index)) {
+                alphaString.append("[").append(indexMapping.get(index)).append("]");
             }
             if (index < this.alpha.size() - 1) {
                 alphaString.append(" ");
