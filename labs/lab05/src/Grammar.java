@@ -11,7 +11,6 @@ public class Grammar {
     private Set<String> terminalSymbols = new LinkedHashSet<>();
     private Map<Set<String>, Set<List<String>>> productionRules = new LinkedHashMap<>();
     private String startSymbol;
-    
     private ParserStrategy strategy;
 
 
@@ -70,7 +69,7 @@ public class Grammar {
     }
 
     public boolean isContextFree() {
-        for (Map.Entry<Set<String>, Set<List<String>>> productionRule: this.productionRules.entrySet()) {
+        for (Map.Entry<Set<String>, Set<List<String>>> productionRule : this.productionRules.entrySet()) {
             if (!(productionRule.getKey().size() == 1 &&
                     this.nonTerminalSymbols.contains(productionRule.getKey().stream().toList().get(0)))) {
                 return false;
@@ -83,7 +82,7 @@ public class Grammar {
         return this.nonTerminalSymbols;
     }
 
-    public boolean isNonTerminalSymbol(String symbol){
+    public boolean isNonTerminalSymbol(String symbol) {
         return this.nonTerminalSymbols.contains(symbol);
     }
 
@@ -91,7 +90,7 @@ public class Grammar {
         return this.terminalSymbols;
     }
 
-    public boolean isTerminalSymbol(String symbol){
+    public boolean isTerminalSymbol(String symbol) {
         return this.terminalSymbols.contains(symbol);
     }
 
@@ -99,11 +98,15 @@ public class Grammar {
         return this.productionRules;
     }
 
+    public String getStartSymbol() {
+        return startSymbol;
+    }
+
     public Set<List<String>> getProductionsForNonTerminal(String nonTerminal) {
         return this.productionRules.get(new LinkedHashSet<>(List.of(nonTerminal)));
     }
 
-    public List<String> getLHSOfIthProductionRuleOfSymbol(String symbol, Integer i){
+    public List<String> getLHSOfIthProductionRuleOfSymbol(String symbol, Integer i) {
         Set<List<String>> productionRulesOfSymbol = this.productionRules.get(new LinkedHashSet<>(Collections.singleton(symbol)));
         return new ArrayList<>(new ArrayList<>(productionRulesOfSymbol).get(i - 1));
     }

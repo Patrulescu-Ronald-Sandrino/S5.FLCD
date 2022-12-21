@@ -1,13 +1,14 @@
 import java.util.*;
 
 public class ParserAlgorithm {
-    private static final ParsingConfiguration initialConfiguration = new ParsingConfiguration(Arrays.asList("S"));
+    private final ParsingConfiguration initialConfiguration;
     private final Grammar grammar;
     private final ParserStrategy strategy;
     private final List<String> sequence;
 
     public ParserAlgorithm(Grammar g, List<String> w) {
         this.grammar = g;
+        this.initialConfiguration = new ParsingConfiguration(Arrays.asList(this.grammar.getStartSymbol()));
         this.strategy = new ParserStrategy(g);
         this.sequence = w;
     }
@@ -30,22 +31,27 @@ public class ParserAlgorithm {
         ParsingConfiguration config = initialConfiguration;
 
         while (config.s != ParsingState.FINAL && config.s != ParsingState.ERROR) {
+            System.out.print(config + " ");
             if (config.s == ParsingState.NORMAL) {
                 if (config.i == sequence.size() + 1 && config.beta.isEmpty()) {
                     // SUCCESS
+                    System.out.println("SUCCESS");
                     this.strategy.success(config);
                     config = config.next;
                 } else {
                     if (grammar.isNonTerminalSymbol(config.beta.peek())) {
                         // EXPAND
+                        System.out.println("EXPAND");
                         this.strategy.expand(config);
                         config = config.next;
                     } else if (config.beta.peek().equals(this.sequence.get(config.i - 1))) {
                         // ADVANCE
+                        System.out.println("ADVANCE");
                         this.strategy.advance(config);
                         config = config.next;
                     } else {
                         // MOMENTARY INSUCCESS
+                        System.out.println("MOMENTARY INSUCCESS");
                         this.strategy.momentaryInsuccess(config);
                         config = config.next;
                     }
@@ -53,15 +59,19 @@ public class ParserAlgorithm {
             } else if (config.s == ParsingState.BACK) {
                 if (grammar.isTerminalSymbol(config.alpha.peek())) {
                     // BACK
+                    System.out.println("BACK");
                     this.strategy.back(config);
                     config = config.next;
                 } else {
                     // ANOTHER TRY
+                    System.out.println("ANOTHER TRY");
                     this.strategy.anotherTry(config);
                     config = config.next;
                 }
             }
         }
+        System.out.println(config);
+
         return config;
     }
 

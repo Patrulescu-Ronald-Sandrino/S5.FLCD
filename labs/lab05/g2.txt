@@ -1,5 +1,5 @@
-program statement statement_list identifier expression type condition relational_operator expression_operator term term_operator factor
-ε { } = ; read write ( ) if else ? : while < <= > >= == != + - * /
+program statement statement_list expression type condition relational_operator expression_operator term term_operator factor sign_and_expression
+ε { } = ; read write ( ) if else ? : while < <= > >= == != + - * / identifier constant
 program
 program -> ε
 program -> statement
@@ -22,13 +22,13 @@ condition -> expression relational_operator expression
 relational_operator -> < <= > >= == !=
 expression_operator -> +
 expression_operator -> -
-expression -> expression expression_operator term
-expression -> term
+expression_operator -> *
+expression_operator -> /
+expression -> term sign_and_expression
 expression -> condition ? expression : expression
+sign_and_expression -> expression_operator expression
+sign_and_expression -> ε
 term_operator -> *
 term_operator -> /
-term -> term term_operator factor
-term -> factor
-factor -> ( expression )
-factor -> identifier
-factor -> number
+term -> constant
+term -> identifier
