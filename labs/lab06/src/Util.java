@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,5 +33,22 @@ public class Util {
         }
 
         return sb.toString();
+    }
+
+    public static void writeToFile(String filePath, String content) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String extractFileNameWithoutExtensionFromPath(String path) {
+        String[] split = path.split("/");
+        String fileName = split[split.length - 1];
+        String[] split2 = fileName.split("\\.");
+        return split2[0];
     }
 }

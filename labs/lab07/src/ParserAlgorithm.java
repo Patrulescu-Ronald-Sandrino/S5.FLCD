@@ -12,7 +12,21 @@ public class ParserAlgorithm {
         this.sequence = w;
     }
 
-    public void execute() {
+    public void execute(String outputFilePath) {
+        ParsingConfiguration config = executeAlgorithm();
+        String output;
+
+        if (config.s == ParsingState.FINAL) {
+            output = getTableFromConfig(config);
+        } else {
+            output = "ERROR";
+        }
+
+        System.out.println(output);
+        Util.writeToFile(outputFilePath, output);
+    }
+
+    private ParsingConfiguration executeAlgorithm() {
         ParsingConfiguration config = initialConfiguration;
 
         while (config.s != ParsingState.FINAL && config.s != ParsingState.ERROR) {
@@ -48,18 +62,19 @@ public class ParserAlgorithm {
                 }
             }
         }
+        return config;
+    }
 
-        if (config.s == ParsingState.ERROR) {
-            // PRINT ERROR MESSAGE
-            System.out.println("ERROR");
-            return;
-        }
+    public String getTableFromConfig(ParsingConfiguration config) {
+        StringBuilder sb = new StringBuilder();
 
-        // PRINT SUCCESS MESSAGE
+        sb.append("Sequence: ").append(sequence).append("\n");
         for (final List<String> row : configToTable(config)) {
             // java print table https://stackoverflow.com/questions/18672643/how-to-print-a-table-of-information-in-java
-            System.out.printf(Util.leftJustifiedFormatting(4, 17) + "%n", row.toArray());
+            sb.append(String.format(Util.leftJustifiedFormatting(4, 17) + "%n", row.toArray()));
         }
+
+        return sb.toString();
     }
 
     private List<List<String>> configToTable(ParsingConfiguration config) {
