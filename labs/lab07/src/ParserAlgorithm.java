@@ -88,7 +88,7 @@ public class ParserAlgorithm {
         }
     }
 
-    private List<List<String>> configToTable(ParsingConfiguration config){
+    private List<List<String>> configToTable(ParsingConfiguration config) {
         return treeToTable(alphaToTree(getAlphaFromConfig(config)));
     }
 
@@ -116,11 +116,10 @@ public class ParserAlgorithm {
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
 
-        List<String> productionRuleRHS = new ArrayList<>();
+        List<String> productionRuleRHS;
         while (!queue.isEmpty()) {
             Node currentNode = queue.poll();
-            // at this point currentNode.symbol == alpha.pop.getKey() if symbol is non-terminal
-            productionRuleRHS = grammar.isNonTerminalSymbol(currentNode.symbol) ? alpha.pop().getValue() : new ArrayList<>();
+            productionRuleRHS = alpha.pop().getValue();
 
             for (int i = 0; i < productionRuleRHS.size(); i++) {
                 String rhsElement = productionRuleRHS.get(i);
@@ -153,20 +152,5 @@ public class ParserAlgorithm {
         }
 
         return table;
-    }
-}
-
-class Node {
-    String symbol;
-    Node parent;
-    Node left;
-
-    public Node(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public Node(String symbol, Node parent) {
-        this.symbol = symbol;
-        this.parent = parent;
     }
 }
