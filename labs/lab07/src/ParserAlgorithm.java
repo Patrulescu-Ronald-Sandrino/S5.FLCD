@@ -12,32 +12,6 @@ public class ParserAlgorithm {
         this.sequence = w;
     }
 
-//    private ParsingTable createParsingTable(ParsingConfiguration finalConfiguration){
-//        ParsingTree tree = new ParsingTree();
-//        int treeIndex = 0;
-//
-//        List<String> alphaAsList = Util.reverse(new ArrayList<>(finalConfiguration.alpha));
-//
-//        while(treeIndex < alphaAsList.size()){
-//            ParsingTreeNode symbolNode = new ParsingTreeNode(alphaAsList.get(treeIndex));
-//            if(grammar.isNonTerminalSymbol(symbol)){
-//                if(tree.root == null){
-//                    tree.root = currentNode;
-//                }
-//                grammar.getLHSOfIthProductionRuleOfSymbol(symbol, finalConfiguration.indexMapping.get(treeIndex));
-//            }
-//        }
-//    }
-
-    public static void main(String[] args) {
-        String grammarFilePathAsString = "../lab05/g1.txt";
-        String[] word = {"a", "c", "b", "c"};
-
-        Grammar grammar = new Grammar(grammarFilePathAsString);
-        ParserAlgorithm parserAlgorithm = new ParserAlgorithm(grammar, Arrays.asList(word));
-        parserAlgorithm.execute();
-    }
-
     public void execute() {
         ParsingConfiguration config = initialConfiguration;
 
