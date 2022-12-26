@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 // g1 is in course 6, page 7
 public class Grammar {
+    private static String EPSILON = "ε";
+
     private Set<String> nonTerminalSymbols = new LinkedHashSet<>();
     private Set<String> terminalSymbols = new LinkedHashSet<>();
     private Map<Set<String>, Set<List<String>>> productionRules = new LinkedHashMap<>();
@@ -47,13 +49,8 @@ public class Grammar {
                                     .trim()
                                     .split(" ");
 
-                    String[] ruleRightHandSide =
-                            Arrays.stream(
-                                            productionRule[1]
-                                                    .trim()
-                                                    .split(" "))
-                                    .map(ruleSymbol -> (Objects.equals(ruleSymbol, "ε")) ? "" : ruleSymbol)
-                                    .toArray(String[]::new);
+                    String[] ruleRightHandSide = productionRule[1].trim().equals(EPSILON)
+                            ? new String[]{} : productionRule[1].trim().split(" ");
 
                     this.productionRules.computeIfAbsent(new LinkedHashSet<>(List.of(ruleLeftHandSide)),
                             k -> new LinkedHashSet<>()).add(List.of(ruleRightHandSide));

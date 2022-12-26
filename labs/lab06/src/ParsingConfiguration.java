@@ -50,6 +50,7 @@ public class ParsingConfiguration {
         for (String symbol : this.beta) {
             betaString.append(symbol).append(" ");
         }
+        if (betaString.length() > 0) betaString.deleteCharAt(betaString.length() - 1);
 
         return "(" + s.toString() + ", " + i + ", " + alphaString + ", " + betaString + ")";
     }

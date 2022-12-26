@@ -29,9 +29,10 @@ public class ParserAlgorithm {
 
     private ParsingConfiguration executeAlgorithm() {
         ParsingConfiguration config = initialConfiguration;
+        int step = 1;
 
         while (config.s != ParsingState.FINAL && config.s != ParsingState.ERROR) {
-            System.out.print(config + " ");
+            System.out.printf("%d: %s ", step++, config);
             if (config.s == ParsingState.NORMAL) {
                 if (config.i == sequence.size() + 1 && config.beta.isEmpty()) {
                     // SUCCESS
@@ -39,12 +40,12 @@ public class ParserAlgorithm {
                     this.strategy.success(config);
                     config = config.next;
                 } else {
-                    if (grammar.isNonTerminalSymbol(config.beta.peek())) {
+                    if (!config.beta.isEmpty() && grammar.isNonTerminalSymbol(config.beta.peek())) {
                         // EXPAND
                         System.out.println("EXPAND");
                         this.strategy.expand(config);
                         config = config.next;
-                    } else if (config.beta.peek().equals(this.sequence.get(config.i - 1))) {
+                    } else if (config.i - 1 < sequence.size() && !config.beta.isEmpty() && config.beta.peek().equals(this.sequence.get(config.i - 1))) {
                         // ADVANCE
                         System.out.println("ADVANCE");
                         this.strategy.advance(config);
