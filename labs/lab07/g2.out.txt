@@ -1,0 +1,15 @@
+Sequence: [identifier, +, constant, ;]
+            index             info           parent    right sibling
+                1              prg                0                0
+                2             stmt                1                0
+                3             expr                2                0
+                4                ;                2                3
+                5             term                3                0
+                6    sign_and_expr                3                5
+                7       identifier                5                0
+                8          expr_op                6                0
+                9             expr                6                8
+               10                +                8                0
+               11             term                9                0
+               12    sign_and_expr                9               11
+               13         constant               11                0
