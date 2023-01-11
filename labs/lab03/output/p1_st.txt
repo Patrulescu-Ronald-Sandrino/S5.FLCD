@@ -1,0 +1,5 @@
+97 -> 0 : a
+98 -> 0 : b
+99 -> 0 : c
+834 -> 0 : "The max of the 3 numbers is "
+2876 -> 0 : max

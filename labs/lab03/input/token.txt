@@ -1,0 +1,33 @@
+# operators
+=
++
+-
+*
+/
+<
+<=
+==
+!=
+>=
+>
+?
+:
+# separators
+{
+}
+(
+)
+:
+,
+;
+ 
+# keywords
+int
+char
+string
+if
+else
+while
+for
+read
+write

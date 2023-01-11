@@ -1,0 +1,15 @@
+int 4n; // 4n is not a valid identifier
+int max = -1;
+
+
+read(n);
+
+
+while(n != 0) {
+        int x;
+        read(x);
+        max = x > max ? x : max;
+        n = n - 1;
+}
+
+write("The maximum is: + max); // missing a quote
