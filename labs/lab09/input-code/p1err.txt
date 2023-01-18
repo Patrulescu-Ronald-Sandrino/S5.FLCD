@@ -1,0 +1,18 @@
+// computes the max of n numbers
+
+int 4n; // 4n is not a valid identifier
+int max = -100;
+
+
+read(n);
+
+
+while(n != 0) {
+    int x;
+    read(x);
+    if(x > max) max = x;
+    n = n - 1;
+}
+
+
+write("The maximum is: + max); // the string literal is missing a quote
