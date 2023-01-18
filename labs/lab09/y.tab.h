@@ -54,18 +54,35 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    READ = 258,                    /* READ  */
-    WRITE = 259,                   /* WRITE  */
-    IF = 260,                      /* IF  */
-    ELSE = 261,                    /* ELSE  */
-    WHILE = 262,                   /* WHILE  */
-    IDENTIFIER = 263,              /* IDENTIFIER  */
-    LITERAL_INT = 264,             /* LITERAL_INT  */
-    LITERAL_CHAR = 265,            /* LITERAL_CHAR  */
-    LITERAL_STRING = 266,          /* LITERAL_STRING  */
-    INT = 267,                     /* INT  */
-    CHAR = 268,                    /* CHAR  */
-    STRING = 269                   /* STRING  */
+    IDENTIFIER = 258,              /* IDENTIFIER  */
+    INT_LITERAL = 259,             /* INT_LITERAL  */
+    CHAR_LITERAL = 260,            /* CHAR_LITERAL  */
+    STRING_LITERAL = 261,          /* STRING_LITERAL  */
+    INT = 262,                     /* INT  */
+    CHAR = 263,                    /* CHAR  */
+    STRING = 264,                  /* STRING  */
+    READ = 265,                    /* READ  */
+    WRITE = 266,                   /* WRITE  */
+    IF = 267,                      /* IF  */
+    ELSE = 268,                    /* ELSE  */
+    WHILE = 269,                   /* WHILE  */
+    LBRACE = 270,                  /* LBRACE  */
+    RBRACE = 271,                  /* RBRACE  */
+    LPAREN = 272,                  /* LPAREN  */
+    RPAREN = 273,                  /* RPAREN  */
+    SEMICOLON = 274,               /* SEMICOLON  */
+    COMMA = 275,                   /* COMMA  */
+    ASSIGN = 276,                  /* ASSIGN  */
+    EQ = 277,                      /* EQ  */
+    NEQ = 278,                     /* NEQ  */
+    LT = 279,                      /* LT  */
+    LEQ = 280,                     /* LEQ  */
+    GT = 281,                      /* GT  */
+    GEQ = 282,                     /* GEQ  */
+    PLUS = 283,                    /* PLUS  */
+    MINUS = 284,                   /* MINUS  */
+    MULTIPLY = 285,                /* MULTIPLY  */
+    DIVIDE = 286                   /* DIVIDE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -74,29 +91,46 @@ extern int yydebug;
 #define YYEOF 0
 #define YYerror 256
 #define YYUNDEF 257
-#define READ 258
-#define WRITE 259
-#define IF 260
-#define ELSE 261
-#define WHILE 262
-#define IDENTIFIER 263
-#define LITERAL_INT 264
-#define LITERAL_CHAR 265
-#define LITERAL_STRING 266
-#define INT 267
-#define CHAR 268
-#define STRING 269
+#define IDENTIFIER 258
+#define INT_LITERAL 259
+#define CHAR_LITERAL 260
+#define STRING_LITERAL 261
+#define INT 262
+#define CHAR 263
+#define STRING 264
+#define READ 265
+#define WRITE 266
+#define IF 267
+#define ELSE 268
+#define WHILE 269
+#define LBRACE 270
+#define RBRACE 271
+#define LPAREN 272
+#define RPAREN 273
+#define SEMICOLON 274
+#define COMMA 275
+#define ASSIGN 276
+#define EQ 277
+#define NEQ 278
+#define LT 279
+#define LEQ 280
+#define GT 281
+#define GEQ 282
+#define PLUS 283
+#define MINUS 284
+#define MULTIPLY 285
+#define DIVIDE 286
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "lang.y"
+#line 24 "lang.y"
 
   	int l_val;
 	char *p_val;
 
-#line 100 "y.tab.h"
+#line 134 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

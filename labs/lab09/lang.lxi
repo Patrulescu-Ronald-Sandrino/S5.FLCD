@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include "y.tab.h"
+
 int line = 1;
 %}
 
@@ -21,18 +23,47 @@ STRING_LITERAL ["][a-zA-Z0-9_=+\-*/<!>?:{}(),; ]*["]
 %%
 
 
-"int"|"char"|"string"|"read"|"write"|"if"|"else"|"while" {printf("keyword: %s\n", yytext);}
-"{"|"}"|"("|")"|";"|"," {printf("delimiter: %s\n", yytext);}
-"="|"=="|"!="|"<"|">"|"<="|">=" {printf("operator: %s\n", yytext);}
-"+"|"-"|"*"|"/" {printf("operator: %s\n", yytext);}
-{IDENTIFIER} {printf("identifier: %s\n", yytext);}
+"int"  {printf("keyword: %s\n", yytext); return INT; }
+"char" {printf("keyword: %s\n", yytext); return CHAR; }
+"string" {printf("keyword: %s\n", yytext); return STRING; }
 
-{INT_LITERAL} {printf("integer literal: %s\n", yytext);}
-{CHAR_LITERAL} {printf("character literal: %s\n", yytext);}
-{STRING_LITERAL} {printf("string literal: %s\n", yytext);}
+"read" {printf("keyword: %s\n", yytext); return READ; }
+"write" {printf("keyword: %s\n", yytext); return WRITE; }
+"if" {printf("keyword: %s\n", yytext); return IF; }
+"else" {printf("keyword: %s\n", yytext); return ELSE; }
+"while" {printf("keyword: %s\n", yytext); return WHILE; }
 
-[ \t] {}
+"{" {printf("symbol: %s\n", yytext); return LBRACE; }
+"}" {printf("symbol: %s\n", yytext); return RBRACE; }
+"(" {printf("symbol: %s\n", yytext); return LPAREN; }
+")" {printf("symbol: %s\n", yytext); return RPAREN; }
+";" {printf("symbol: %s\n", yytext); return SEMICOLON; }
+"," {printf("symbol: %s\n", yytext); return COMMA; }
+
+"=" {printf("symbol: %s\n", yytext); return ASSIGN; }
+
+"==" {printf("symbol: %s\n", yytext); return EQ; }
+"!=" {printf("symbol: %s\n", yytext); return NEQ; }
+"<" {printf("symbol: %s\n", yytext); return LT; }
+"<=" {printf("symbol: %s\n", yytext); return LEQ; }
+">" {printf("symbol: %s\n", yytext); return GT; }
+">=" {printf("symbol: %s\n", yytext); return GEQ; }
+
+"+" {printf("symbol: %s\n", yytext); return PLUS; }
+"-" {printf("symbol: %s\n", yytext); return MINUS; }
+"*" {printf("symbol: %s\n", yytext); return MULTIPLY; }
+"/" {printf("symbol: %s\n", yytext); return DIVIDE; }
+
+
+
+{IDENTIFIER} {printf("identifier: %s\n", yytext); return IDENTIFIER; }
+{INT_LITERAL} {printf("integer literal: %s\n", yytext); return INT_LITERAL; }
+{CHAR_LITERAL} {printf("character literal: %s\n", yytext); return CHAR_LITERAL; }
+{STRING_LITERAL} {printf("string literal: %s\n", yytext); return STRING_LITERAL; }
+
+[ \t\r] ;
 [\n] {line++;}
+
 "//".* {} /* ignore comments */
 . {printf("ERROR text=%s line=%d\n", yytext, line);}
 
