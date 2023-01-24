@@ -1,0 +1,36 @@
+prg stmt stmt_list expr type cond rel_op expr_op term term_op factor sign_and_expr
+ε { } = ; read write ( ) if else ? : while < <= > >= == != + - * / identifier constant
+prg
+prg -> ε
+prg -> stmt
+stmt -> ε
+stmt -> { stmt_list }
+stmt -> type identifier ;
+stmt -> type identifier = expr ;
+stmt -> identifier = expr ;
+stmt -> read(identifier) ;
+stmt -> write(expr) ;
+stmt -> if ( cond ) stmt
+stmt -> if ( cond ) stmt else stmt
+stmt -> cond ? stmt : stmt
+stmt -> while ( cond ) stmt
+stmt -> expr ;
+stmt_list -> ε
+stmt_list -> stmt
+stmt_list -> stmt_list stmt
+type -> int char string
+cond -> 0
+cond -> 1
+cond -> expr rel_op expr
+rel_op -> < <= > >= == !=
+expr_op -> +
+expr_op -> -
+expr_op -> *
+expr_op -> /
+expr -> term sign_and_expr
+sign_and_expr -> expr_op expr
+sign_and_expr -> ε
+term_op -> *
+term_op -> /
+term -> constant
+term -> identifier

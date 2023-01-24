@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="lab09-lec" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="p1err.txt" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab09" TARGET_NAME="lab09" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="lab09" RUN_TARGET_NAME="lab09">
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="lex lang.lxi" run_configuration_type="ShConfigurationType" />
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
