@@ -10,4 +10,4 @@ Cluj-Napoca, 1996. (I just searched the entire string on google)(everytime you s
 	- https://pdfcoffee.com/limbaje-formale-si-automate-pdf-free.html
 	- https://dokumen.tips/documents/limbaje-formale-si-automate-565df0440cadb.html?page=1
 
-- merge pdfs: `pdfunite lectures/Course{1,2,3si4,{5..9},10,1112}.pdf lectures/lectures-merged.pdf` (use `set -x` to see that they are in the correct order. and `set +x` to revert it. for more help see `man bash` -> `SHELL BUILTIN COMMANDS` -> `set`)
+- merge pdfs: `pdfunite lectures/Course{1,2,3si4,{5..9},10,1112,13}.pdf lectures/lectures-merged.pdf` (use `set -x` to see that they are in the correct order. and `set +x` to revert it. for more help see `man bash` -> `SHELL BUILTIN COMMANDS` -> `set`)
